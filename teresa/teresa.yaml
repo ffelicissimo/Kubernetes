@@ -1,0 +1,52 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: teresa
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: teresa
+    spec:
+      containers:
+      - name: teresa
+        image: luizalabs/teresa:v0.2.2
+        ports:
+        - containerPort: 8080
+        env:
+          - name: TERESADB_DATABASE
+            value: "teresadb"
+          - name: TERESADB_HOSTNAME
+            value: "teresadb.cc5rlqtcpwus.us-east-1.rds.amazonaws.com"
+          - name: TERESADB_USERNAME
+            value: "teresa"
+          - name: TERESADB_PASSWORD
+            value: "teresa123"
+          - name: TERESADB_PORT
+            value: "3306"
+          - name: TERESAK8S_HOST
+            value: "https://api.lab.ffelicissimo.k8s.magazineluiza.com"
+          - name: TERESAK8S_USERNAME
+            value: "admin"
+          - name: TERESAK8S_PASSWORD
+            value: "4tcA0fZSzoiz4zQOLBgBzQisYxbtxOst"
+          - name: TERESAK8S_INSECURE
+            value: "true"
+          - name: TERESAFILESTORAGE_TYPE
+            value: s3
+          - name: TERESAFILESTORAGE_AWS_KEY
+            value: AKIAICNGEC7RAB3RQAWQ
+          - name: TERESAFILESTORAGE_AWS_SECRET
+            value: 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
+          - name: TERESAFILESTORAGE_AWS_REGION
+            value: us-east-1
+          - name: TERESAFILESTORAGE_AWS_BUCKET
+            value: teresademo
+          - name: TERESADEPLOY_REVISION_HISTORY_LIMIT
+            value: "5"
+          - name: TERESADEPLOY_START_TIMEOUT
+            value: "10m"
+          - name: TERESADEPLOY_FINISH_TIMEOUT
+            value: "30m"

@@ -1,0 +1,38 @@
+10.31.0.212
+10.31.0.213
+
+
+
+
+
+
+kubectl run hello-world --replicas=2 --labels="run=testelb" --image=gcr.io/google-samples/node-hello:1.0 --port=8080
+kubectl get deployments hello-world
+kubectl describe deployments hello-world
+kubectl get replicasets
+kubectl describe replicasets
+kubectl expose deployment hello-world --type=NodePort --name=teste-service
+kubectl describe services teste-service
+kubectl get pods --selector="run=testelb" --output=wide
+curl http://<public-node-ip>:<node-port>
+
+
+
+Teresa
+
+kubectl run teresa-server --env="TERESADB_DATABASE=teresadb.cc5rlqtcpwus.us-east-1.rds.amazonaws.com" --env="TERESADB_USERNAME=teresa" --env="TERESADB_PASSWORD=teste123" --env="TERESADB_PORT=3306" --replicas=2 --labels="run=teresalb" --image=luizalabs/teresa --port=80 
+kubectl get deployments teresa-server
+kubectl describe deployments teresa-server
+kubectl get replicasets
+kubectl describe replicasets
+kubectl expose deployment teresa-server --type=NodePort --name=teresa-service
+kubectl describe services teresa-service
+kubectl get pods --selector="run=teresalb" --output=wide
+
+kubectl delete services teresa
+kubectl delete deployment teresa
+
+kubectl expose deployment teresa -n teresa --type=LoadBalancer --port=80 --target-port=8080
+
+
+
