@@ -207,7 +207,11 @@ write_files:
          [Network]
          Address=172.16.20.1/24
 
-manage_etc_hosts: "localhost"
+write_files:
+   - path: /etc/hosts
+     content: |
+        127.0.0.1     localhost
+        10.31.0.231   s500lxkubernetes01.magazineluiza.intranet s500lxkubernetes01
 
 write_files:
   - path: /etc/nsswitch.conf

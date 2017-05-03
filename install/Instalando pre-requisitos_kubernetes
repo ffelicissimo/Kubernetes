@@ -14,7 +14,7 @@ http://devopslab.com.br/kubernetes-como-instalar-e-configurar-o-kubernetes-k8s-g
 $curl https://github.com/rancher/install-docker/blob/master/1.12.6.sh > 1.12.6.sh
 
 #Instalando pre-requisitos
-
+$sudo apt-get install build-essential
 $sudo vim /etc/sysctl.conf
 fs.inotify.max_user_instances = 1048576
 fs.inotify.max_queued_events = 1048576
@@ -45,8 +45,16 @@ GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
 
 $sudo update-grub
 
-$ export KUBE_VERSION=1.6.1
-$ export FLANNEL_VERSION=0.7.1
-$ export ETCD_VERSION=2.2.5
+export KUBE_VERSION=1.6.1
+export FLANNEL_VERSION=0.7.1
+export ETCD_VERSION=3.1.4
+export nodes="fernando@10.31.0.232 fernando@10.31.0.233 fernando@10.31.0.234"
+export roles="a i i i"
+export NUM_NODES=${NUM_NODES:-3}
+export SERVICE_CLUSTER_IP_RANGE=192.168.3.0/24
+export FLANNEL_NET=172.16.0.0/16
+export KUBE_MASTER_IP=10.31.0.231
+export KUBE_MASTER=s500lxkubernetes01
 
-
+Editar a linha 159 arquivo get-kub-binaries.sh
+DOWNLOAD_URL_PREFIX="${KUBERNETES_RELEASE_URL}/v${KUBE_VERSION}"
