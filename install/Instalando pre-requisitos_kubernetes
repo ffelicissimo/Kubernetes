@@ -48,13 +48,24 @@ $sudo update-grub
 export KUBE_VERSION=1.6.1
 export FLANNEL_VERSION=0.7.1
 export ETCD_VERSION=3.1.4
-export nodes="fernando@10.31.0.232 fernando@10.31.0.233 fernando@10.31.0.234"
-export roles="a i i i"
+export nodes="fernando@10.31.0.231 fernando@10.31.0.232 fernando@10.31.0.233 fernando@10.31.0.234"
+export roles="ai i i"
 export NUM_NODES=${NUM_NODES:-3}
 export SERVICE_CLUSTER_IP_RANGE=192.168.3.0/24
 export FLANNEL_NET=172.16.0.0/16
 export KUBE_MASTER_IP=10.31.0.231
 export KUBE_MASTER=s500lxkubernetes01
 
+
+MASTER=""
+MASTER_IP=""
+NODE_IPS=""
+
 Editar a linha 159 arquivo get-kub-binaries.sh
 DOWNLOAD_URL_PREFIX="${KUBERNETES_RELEASE_URL}/v${KUBE_VERSION}"
+
+
+https://blog.codeship.com/getting-started-with-kubernetes/
+http://blog.guthnur.net/kubernetes-ubuntu-installation/
+
+https://medium.com/@SystemMining/setup-kubenetes-cluster-on-ubuntu-16-04-with-kubeadm-336f4061d929
