@@ -1,0 +1,120 @@
+#####
+
+#Parametros de Kernel
+$sudo vim /etc/sysctl.conf
+fs.inotify.max_user_instances = 1048576
+fs.inotify.max_queued_events = 1048576
+fs.inotify.max_user_watches = 1048576
+net.ipv4.ip_forward=1
+$sudo sysctl -p
+
+#Atualizando cache repo
+$sudo apt-get update
+
+#Instalando pre-requisitos
+$sudo apt-get install build-essential bridge-utils linux-image-extra-$(uname -r) linux-image-extra-virtual apt-transport-https ca-certificates curl software-properties-common 
+
+#Chave Publica de instalação docker.io
+$curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+#Adicionando ao repo-list repositorio oficial 
+$sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+#Script de instalacao versao 1.12.6 docker(RECOMENDADO)
+1) Acesse essa url https://github.com/rancher/install-docker/blob/master/1.12.6.sh 
+2) Copie e cole o conteudo da url e crie um arquivo "1.12.6.sh"
+3) Conceda privigio de execucao ao arquivo 1.12.6.sh
+$chmod 700 1.12.6.sh
+4) Execute o script para fazer a instalaca do docker versao 1.12.6
+$./1.12.6.sh
+
+#Instalacao Versao 1.17 docker-ce(Comunity Edition)
+$sudo apt-get install docker-ce
+
+#Adicionando privilegios do docker ao usuario
+$sudo usermod -aG docker $USER
+
+#Configurando docker para usar os DNS's internos mas poderia ser externos caso queira
+$sudo vim /etc/default/docker
+DOCKER_OPTS="--dns 10.0.0.150 --dns 10.0.0.151"
+
+#Alterando Grub com parametros de gerenciamento de memoria e swap para o docker
+$sudo vim /etc/default/grub
+GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
+$sudo update-grub
+Obs: Importante apos estas alterações efetuar reboot
+
+#Instalação Kubernetes
+$sudo apt-get update && sudo apt-get install -y apt-transport-https
+
+#Adicionando chave publica de acesso ao Cloud.Google
+$curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
+#Adicionando ao repolist apt kubernetes
+$touch /etc/apt/sources.list.d/kubernetes.list && echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d
+$apt-get update
+
+#Instalando via apt kubernetes
+$apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+Obs: Execute esta instalacao tanto no master e nos nodes
+
+#No MASTER como "root" execute
+$kubeadm init
+
+[preflight] Running pre-flight checks
+[init] Using Kubernetes version: v1.5.3
+[tokens] Generated token: "858698.51d1418b0490485a"
+[certificates] Generated Certificate Authority key and certificate.
+[certificates] Generated API Server key and certificate
+[certificates] Generated Service Account signing keys
+[certificates] Created keys and certificates in "/etc/kubernetes/pki"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/admin.conf"
+[apiclient] Created API client, waiting for the control plane to become ready
+[apiclient] All control plane components are healthy after 116.296344 seconds
+[apiclient] Waiting for at least one node to register and become ready
+[apiclient] First node is ready after 4.004781 seconds
+[apiclient] Creating a test deployment
+[apiclient] Test deployment succeeded
+[token-discovery] Created the kube-discovery deployment, waiting for it to become ready
+[token-discovery] kube-discovery is ready after 10.004425 seconds
+[addons] Created essential addon: kube-proxy
+[addons] Created essential addon: kube-dns
+Your Kubernetes master has initialized successfully!
+You should now deploy a pod network to the cluster.  
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:  
+    http://kubernetes.io/docs/admin/addons/
+You can now join any number of machines by running the following on each node:
+kubeadm join --token=858698.51d1418b0490485a 192.168.0.13:6443
+
+Caso venha aparecer uma mensagem como essa acima significa que a instalacao esta concluida..... importante copiar a linha com o comando "kubeadm join --token=858698.51d1418b0490485a 192.168.0.13:6443" para ser executado nos Nodes membros do cluster.
+
+#Arquivo de configuracao do cluster para manipulacao e acesso ao cluster k8s
+$mkdir $HOME/.kube/
+$sudo cp /etc/kubernetes/admin.conf $HOME/.kube/
+$sudo chown $(id -u):$(id -g) $HOME/.kube/admin.conf
+$export KUBECONFIG=$HOME/.kube/admin.conf
+$echo "KUBECONFIG=$HOME/.kube/admin.conf" >> $HOME/.profile
+
+#Verificando os nodes
+$kubectl get nodes
+NAME                 STATUS    AGE       VERSION
+s500lxkubernetes01   Ready     5h        v1.6.2
+s500lxkubernetes02   Ready     5h        v1.6.2
+s500lxkubernetes03   Ready     5h        v1.6.2
+s500lxkubernetes04   Ready     5h        v1.6.2
+
+#Instalaçao ainda nao esta completa precisamos instalar a parte de rede CNI no "master" no caso estarei usando o "calico" mas poderia ser por exemplo um "flannel"
+
+#Instalando o flannel
+$kubectl apply -f https://git.io/weave-kube-1.6
+
+#Instalando calico
+$kubectl apply -f http://docs.projectcalico.org/v2.1/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+
+
+
+
+
+
+
