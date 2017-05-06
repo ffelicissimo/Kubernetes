@@ -8,10 +8,18 @@ http://devopslab.com.br/kubernetes-como-instalar-e-configurar-o-kubernetes-k8s-g
 10.31.0.231	s500lxkubernetes01.magazineluiza.intranet	s500lxkubernetes01
 10.31.0.232	s500lxkubernetes02.magazineluiza.intranet 	s500lxkubernetes02
 10.31.0.233	s500lxkubernetes03.magazineluiza.intranet	s500lxkubernetes03
-10.31.0.234 	s500lxkubernetes04.magazineluiza.intranet	s500lxkubernetes04
+10.31.0.234 s500lxkubernetes04.magazineluiza.intranet	s500lxkubernetes04
 
 #Script de instalacao versao docker(caso precise)
 $curl https://github.com/rancher/install-docker/blob/master/1.12.6.sh > 1.12.6.sh
+
+#Parametros de Kernel
+$sudo vim /etc/sysctl.conf
+fs.inotify.max_user_instances = 1048576
+fs.inotify.max_queued_events = 1048576
+fs.inotify.max_user_watches = 1048576
+net.ipv4.ip_forward=1
+
 
 #Instalando pre-requisitos
 $sudo apt-get install build-essential
@@ -20,6 +28,7 @@ fs.inotify.max_user_instances = 1048576
 fs.inotify.max_queued_events = 1048576
 fs.inotify.max_user_watches = 1048576
 vm.max_map_count = 262144
+
 
 $sudo sysctl -p
 
@@ -68,4 +77,4 @@ DOWNLOAD_URL_PREFIX="${KUBERNETES_RELEASE_URL}/v${KUBE_VERSION}"
 https://blog.codeship.com/getting-started-with-kubernetes/
 http://blog.guthnur.net/kubernetes-ubuntu-installation/
 
-https://medium.com/@SystemMining/setup-kubenetes-cluster-on-ubuntu-16-04-with-kubeadm-336f4061d929
+-- > https://medium.com/@SystemMining/setup-kubenetes-cluster-on-ubuntu-16-04-with-kubeadm-336f4061d929

@@ -1,4 +1,14 @@
-#####
+###################### Fernando Felicissimo ####################################
+################### email:ffelicissimo@gmail.com ###############################
+##### Instalação Kubernetes 1.6.2 via Kubadm Ubuntu 16.0.04 Docker 1.12.6#######
+######################### Data:05/05/2017 ######################################
+
+Impotante estar bem configurado:
+1)chave publica entre os nodes e o master;
+2)"/etc/hosts" dos servidores do cluster;
+3)Sincronismo de hora para que nao tenha problema de sincronismos dos hosts;
+4)As versoes CE e EE do docker ainda nao estao oficialmente suportadas portanto usarei a versao do docker 1.12.6;
+
 
 #Parametros de Kernel
 $sudo vim /etc/sysctl.conf
@@ -28,7 +38,7 @@ $chmod 700 1.12.6.sh
 4) Execute o script para fazer a instalaca do docker versao 1.12.6
 $./1.12.6.sh
 
-#Instalacao Versao 1.17 docker-ce(Comunity Edition)
+#Instalacao Versao 1.17 docker-ce(Comunity Edition) - Ainda nao suportado oficialmente
 $sudo apt-get install docker-ce
 
 #Adicionando privilegios do docker ao usuario
@@ -112,9 +122,111 @@ $kubectl apply -f https://git.io/weave-kube-1.6
 #Instalando calico
 $kubectl apply -f http://docs.projectcalico.org/v2.1/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
 
+Pronto Cluster configurado agora e somente efetuar os deploys !!!!!
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+http://docs.projectcalico.org/v2.1/getting-started/kubernetes/installation/hosted/kubeadm/
+https://www.weave.works/docs/net/latest/kube-addon/
+https://www.weave.works/docs/net/latest/metrics/
+https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/#master-server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://medium.com/@SystemMining/setup-kubenetes-cluster-on-ubuntu-16-04-with-kubeadm-336f4061d929
