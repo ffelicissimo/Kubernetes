@@ -58,14 +58,16 @@ Obs: Importante apos estas alterações efetuar reboot
 $sudo apt-get update && sudo apt-get install -y apt-transport-https
 
 #Adicionando chave publica de acesso ao Cloud.Google
-$curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+$curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 #Adicionando ao repolist apt kubernetes
-$touch /etc/apt/sources.list.d/kubernetes.list && echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d
+$sudo touch /etc/apt/sources.list.d/kubernetes.list 
+$sudo vim /etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
 $apt-get update
 
 #Instalando via apt kubernetes
-$apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+$sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 Obs: Execute esta instalacao tanto no master e nos nodes
 
 #No MASTER como "root" execute
@@ -104,7 +106,7 @@ $mkdir $HOME/.kube/
 $sudo cp /etc/kubernetes/admin.conf $HOME/.kube/
 $sudo chown $(id -u):$(id -g) $HOME/.kube/admin.conf
 $export KUBECONFIG=$HOME/.kube/admin.conf
-$echo "KUBECONFIG=$HOME/.kube/admin.conf" >> $HOME/.profile
+$echo "export KUBECONFIG=$HOME/.kube/admin.conf" >> $HOME/.profile
 
 #Verificando os nodes
 $kubectl get nodes
@@ -121,6 +123,9 @@ $kubectl apply -f https://git.io/weave-kube-1.6
 
 #Instalando calico
 $kubectl apply -f http://docs.projectcalico.org/v2.1/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+Precisa ser alterado a TAG API SERVER para que consiga acessar as aplicacoes pelo API SERVER
+- name: K8S_API
+              value: "https://master.magazineluiza.intranet:443"
 
 Pronto Cluster configurado agora e somente efetuar os deploys !!!!!
 
