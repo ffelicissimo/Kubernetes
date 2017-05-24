@@ -64,7 +64,7 @@ $curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key ad
 $sudo touch /etc/apt/sources.list.d/kubernetes.list 
 $sudo vim /etc/apt/sources.list.d/kubernetes.list
 deb http://apt.kubernetes.io/ kubernetes-xenial main
-$apt-get update
+$sudo apt-get update
 
 #Instalando via apt kubernetes
 $sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
