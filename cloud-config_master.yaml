@@ -34,11 +34,11 @@ coreos:
   etcd2:
     name: "s500lxhmlcoreos01"
     listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
-    advertise-client-urls: http://s500lxhmlcoreos01.magazineluiza.intranet:2379,http://s500lxhmlcoreos01.magazineluiza.intranet:4001
+    advertise-client-urls: http://host.dominio.intranet:2379,http://host.dominio.intranet:4001
     initial-cluster-token: cluster_etcd
     listen-peer-urls: http://0.0.0.0:2380
-    initial-advertise-peer-urls: http://s500lxhmlcoreos01.magazineluiza.intranet:2380
-    initial-cluster: master=http://http://s500lxhmlcoreos01.magazineluiza.intranet:2380
+    initial-advertise-peer-urls: http://host.dominio.intranet:2380
+    initial-cluster: master=http://host.dominio.intranet:2380
     initial-cluster-state: new
   fleet:
     metadata: "role=master"
