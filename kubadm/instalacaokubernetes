@@ -125,7 +125,7 @@ $kubectl apply -f https://git.io/weave-kube-1.6
 $kubectl apply -f http://docs.projectcalico.org/v2.1/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
 Precisa ser alterado a TAG API SERVER para que consiga acessar as aplicacoes pelo API SERVER
 - name: K8S_API
-              value: "https://master.magazineluiza.intranet:443"
+              value: "https://master.dominio.intranet:443"
 
 Pronto Cluster configurado agora e somente efetuar os deploys !!!!!
 
