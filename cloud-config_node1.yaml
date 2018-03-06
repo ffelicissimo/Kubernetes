@@ -26,8 +26,8 @@ coreos:
   etcd2:
     discovery:  https://discovery.etcd.io/c036ab87c16c0bf4dd0cea4e89a8f957 
     listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
-    advertise-client-urls: http://s500lxhmlcoreos02.magazineluiza.intranet:2379,http://s500lxhmlcoreos02.magazineluiza.intranet:4001
-    initial-cluster: master=http://s500lxhmlcoreos01.magazineluiza.intranet:2380
+    advertise-client-urls: http://host.dominio.intranet:2379,http://host.dominio.intranet:4001
+    initial-cluster: master=http://master.dominio.intranet:2380
     proxy: on
   fleet:
     metadata: "role=node"
@@ -68,9 +68,9 @@ coreos:
         ExecStartPre=/usr/bin/curl -L -o /opt/bin/kube-proxy -z /opt/bin/kube-proxy https://storage.googleapis.com/kubernetes-release/release/v1.1.2/bin/linux/amd64/kube-proxy
         ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-proxy
         # wait for kubernetes master to be up and ready
-        ExecStartPre=/opt/bin/wupiao s500lxhmlcoreos01.magazineluiza.intranet 8081
+        ExecStartPre=/opt/bin/wupiao master.dominio.intranet 8081
         ExecStart=/opt/bin/kube-proxy \
-        --master=s500lxhmlcoreos01.magazineluiza.intranet:8081 \
+        --master=host.dominio.intranet:8081 \
         --logtostderr=true
         Restart=always
         RestartSec=10
@@ -87,12 +87,12 @@ coreos:
         ExecStartPre=/usr/bin/curl -L -o /opt/bin/kubelet -z /opt/bin/kubelet https://storage.googleapis.com/kubernetes-release/release/v1.1.2/bin/linux/amd64/kubelet
         ExecStartPre=/usr/bin/chmod +x /opt/bin/kubelet
         # wait for kubernetes master to be up and ready
-        ExecStartPre=/opt/bin/wupiao s500lxhmlcoreos01.magazineluiza.intranet 8081
+        ExecStartPre=/opt/bin/wupiao host.dominio.intranet 8081
         ExecStart=/opt/bin/kubelet \
         --address=0.0.0.0 \
         --port=10250 \
         --hostname-override=${DEFAULT_IPV4} \
-        --api-servers=s500lxhmlcoreos01.magazineluiza.intranet:8081 \
+        --api-servers=host.dominio.intranet:8081 \
         --allow-privileged=true \
         --logtostderr=true \
         --cadvisor-port=4194 \
@@ -111,7 +111,7 @@ write_files:
     content: |
       nameserver 10.0.0.150
       nameserver 10.0.0.151
-      search magazineluiza.intranet
+      search dominio.intranet
 
 coreos:
   units:
