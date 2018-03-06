@@ -31,11 +31,11 @@ coreos:
     name: master
     discovery: https://discovery.etcd.io/95ef29ccbeab9691081571cea7eaecdf
     listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
-    advertise-client-urls: http://s500lxhmlcoreos01.magazineluiza.intranet:2379,http://s500lxhmlcoreos01.magazineluiza.intranet:4001
+    advertise-client-urls: http://host01.dominio.intranet:2379,http://host01.dominio.intranet:4001
     initial-cluster-token: k8s_etcd
     listen-peer-urls: http://0.0.0.0:2380,http://0.0.0.0:7001
-    initial-advertise-peer-urls: http://s500lxhmlcoreos01.magazineluiza.intranet:2380,http://s500lxhmlcoreos01.magazineluiza.intranet:7001
-    initial-cluster: master=http://s500lxhmlcoreos01.magazineluiza.intranet:2380
+    initial-advertise-peer-urls: http://host01.dominio.intranet:2380,http://host01.dominio.intranet:7001
+    initial-cluster: master=http://host01.dominio.intranet:2380
     initial-cluster-state: new
   fleet:
     metadata: "role=master"
@@ -151,7 +151,7 @@ write_files:
     permissions: "0644"
     owner: "root"
     content: |
-      search magazineluiza.intranet
+      search dominio.intranet
       nameserver 10.0.0.150
       nameserver 10.0.0.151
 
@@ -211,7 +211,7 @@ write_files:
    - path: /etc/hosts
      content: |
         127.0.0.1     localhost
-        10.31.0.231   s500lxkubernetes01.magazineluiza.intranet s500lxkubernetes01
+        10.31.0.231   host01.dominio.intranet hostname
 
 write_files:
   - path: /etc/nsswitch.conf
