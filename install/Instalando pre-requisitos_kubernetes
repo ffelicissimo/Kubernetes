@@ -5,10 +5,10 @@ https://github.com/conjure-up/conjure-up
 http://devopslab.com.br/kubernetes-como-instalar-e-configurar-o-kubernetes-k8s-gerencia-de-containers-docker/
 
 
-10.31.0.231	s500lxkubernetes01.magazineluiza.intranet	s500lxkubernetes01
-10.31.0.232	s500lxkubernetes02.magazineluiza.intranet 	s500lxkubernetes02
-10.31.0.233	s500lxkubernetes03.magazineluiza.intranet	s500lxkubernetes03
-10.31.0.234 s500lxkubernetes04.magazineluiza.intranet	s500lxkubernetes04
+10.31.0.231	s500lxkubernetes01.dominio.intranet	s500lxkubernetes01
+10.31.0.232	s500lxkubernetes02.dominio.intranet s500lxkubernetes02
+10.31.0.233	s500lxkubernetes03.dominio.intranet	s500lxkubernetes03
+10.31.0.234 s500lxkubernetes04.dominio.intranet	s500lxkubernetes04
 
 #Script de instalacao versao docker(caso precise)
 $curl https://github.com/rancher/install-docker/blob/master/1.12.6.sh > 1.12.6.sh
